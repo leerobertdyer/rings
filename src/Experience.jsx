@@ -3,7 +3,7 @@ import "./Experience.css";
 import Corridor from "./Components/Corridor/Corridor";
 import Ring from "./Components/Ring/Ring";
 import Player from "./Components/Player/Player";
-import { baseRingSpeed, mainCorridorSpinSpeed } from "./constants";
+import { baseRingSpeed, mainCorridorSpinSpeed, speedIncrement, startingPosition } from "./constants";
 import { useEffect, useMemo, useState, useRef } from "react";
 import Points from "./Components/Points/Points";
 import StartScreen from "./Components/StartScreen/StartScreen";
@@ -25,6 +25,7 @@ export default function Experience() {
   const [lives, setLives] = useState(3);
   const [hit, setHit] = useState(false);
   const [hitKey, setHitKey] = useState(0);
+  const [speed, setSpeed] = useState(0.4);
   const startScreenRef = useRef(null);
   const handicap = 2;
   
@@ -41,10 +42,22 @@ export default function Experience() {
     console.log("points changed", points);
   }, [points]);
 
+  useEffect(() => {
+    console.log("Speed changed to:", speed);
+  }, [speed]);
+
   function handleCollision(type) {
     if (type === "good") {
       setPoints((p) => p + 1);
     } else if (type === "damage") {
+      console.log("Before damage collision, speed:", speed);
+      
+      setSpeed((s) => {
+        const newSpeed = s + speedIncrement;
+        console.log("Setting new speed:", newSpeed);
+        return newSpeed;
+      });
+      
       setLives((l) => l - 1);
       setHit(true);
       setHitKey(Date.now());
@@ -112,7 +125,6 @@ export default function Experience() {
       yPosition: positions[index],
     }));
   }, []);
-  console.log(ringConfigs)
 
   useEffect(() => {
     setScoreToWin(totalGoodRings - handicap);
@@ -154,6 +166,17 @@ export default function Experience() {
     }
   }, [started]);
 
+  function handlePortalCollision() {
+    console.log("Before portal collision, speed:", speed);
+    
+    setSpeed((s) => {
+      const newSpeed = s + speedIncrement;
+      console.log("Setting portal speed:", newSpeed);
+      return newSpeed;
+    });
+  }
+
+
   return (
     <div className="mainExperienceDiv">
       {hit && <div key={hitKey} className="hit"></div>}
@@ -171,13 +194,13 @@ export default function Experience() {
             <Canvas
               className="canvas"
               onCreated={(state) => {
-                state.camera.position.set(0, 0, 50);
+                state.camera.position.set(...startingPosition);
               }}
             >
               {/* <axesHelper args={[15]} /> */}
               <ambientLight />
-              <Player lives={lives}/>
-              <Corridor speed={mainCorridorSpinSpeed} length={levelOneLength}>
+              <Player lives={lives} speed={speed}/>
+              <Corridor corriderSpinSpeed={mainCorridorSpinSpeed} length={levelOneLength}>
                 {ringConfigs.map((config, i) => {
                   const { radius, zPosition, yPosition } = config;
                   return (
@@ -200,7 +223,7 @@ export default function Experience() {
                     />
                   );
                 })}
-                <Portal type="end" />
+                <Portal onCollision={handlePortalCollision}/>
               </Corridor>
             </Canvas>
           </>

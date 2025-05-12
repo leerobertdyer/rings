@@ -4,8 +4,7 @@ import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useRef, useState } from "react";
 
-export default function Portal({ type }) {
-    console.log(type)
+export default function Portal({ onCollision }) {
     const matcapTexture = useTexture("/textures/cat.png");
     const [collided, setCollided] = useState(false);
     const { camera } = useThree();
@@ -25,6 +24,7 @@ export default function Portal({ type }) {
         if (collided) {
             setCollided(false);
             camera.position.set(0, 0, 50);
+            onCollision();
         }
     })
 

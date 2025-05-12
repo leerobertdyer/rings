@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { handleMovement } from "../../movements";
 import { useTexture } from "@react-three/drei";
 
-export default function Player({ lives }) {
+export default function Player({ lives, speed }) {
   const { camera } = useThree();
   const playerRef = useRef();
   // Load the texture properly using useTexture hook
@@ -36,9 +36,6 @@ export default function Player({ lives }) {
     };
   }, []);
 
-  // Movement speed
-  const speedManipulator = lives * .08
-  const speed = 0.4 - speedManipulator;
 
   useFrame(() => {
     if (playerRef.current) {
