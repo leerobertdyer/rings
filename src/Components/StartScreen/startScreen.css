@@ -1,0 +1,22 @@
+.startScreen {
+    position: absolute;
+    inset: 0;
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(24, 24, 24, 0.5);
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex-direction: column;
+}
+
+.startScreen div {
+    margin: 0;
+    padding-top: 10rem;
+    text-align: center;
+    font-size: 3rem;
+}

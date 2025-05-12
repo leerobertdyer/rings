@@ -1,3 +1,5 @@
+import './startScreen.css';
+
 export default function StartScreen({ startGame, started, startScreenRef }) {
     return (
             <div
@@ -6,7 +8,11 @@ export default function StartScreen({ startGame, started, startScreenRef }) {
               tabIndex={0}
               onClick={startGame}
             >
-              Press any key to start
+              <div>
+                <p>Press any key to start</p>
+                <p>Space =&gt; forward</p>
+                <p>Arrow keys =&gt; direction</p>
+              </div>
             </div>
     )
 }

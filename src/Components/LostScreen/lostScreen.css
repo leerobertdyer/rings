@@ -1,0 +1,35 @@
+.lostScreen {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(24, 24, 24, 0.5);
+    color: red;
+    font-size: 3rem;
+    text-align: center;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.lostScreen h1 {
+    margin: 0;
+    padding-top: 10rem;
+    text-align: center;
+    font-size: 3rem;
+}
+
+.tryAgainButton {
+    background-image: url("/stars.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 1rem;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}

@@ -2,8 +2,8 @@ import { useFrame } from "@react-three/fiber";
 import { NEG90 } from "../../constants";
 import * as THREE from "three";
 import { useRef } from "react";
-const topRadius = 10
-const bottomRadius = 10
+const topRadius = 20
+const bottomRadius = 20
 const radialSegments = 32
 const heightSegments = 32
 
